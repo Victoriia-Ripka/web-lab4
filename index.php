@@ -53,15 +53,15 @@ $double = 20.08567;
 $male = false;
 $string = "20";
 $someVar;
-$new_number = $$number;
 echo gettype($number), "<br/>";
-echo $new_number , "<br/>";
 
-$new_number = 5;
-echo $new_number, " ", $number, "<br/>";
+$new_number = 'number';
+echo $$new_number , "<br/>";
 
-$number = 15;
-echo $new_number, " ", $number, "<br/>";
+// $new_number = 5;
+// echo $new_number, " ", $number, "<br/>";
+// $number = 15;
+// echo $new_number, " ", $number, "<br/>";
 
 if($number < $double ){
     echo "$number < $double";
