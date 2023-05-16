@@ -1,24 +1,21 @@
 <?php
 
 declare(strict_types=1);
-namespace Patterns\Singleton;
+namespace DesignPatterns\Creational\Singleton\Tests;
 
 // variables 
 $name = 'Viktoriia ';
 $surname = "Ripka ";
 $group = "TV-13";
 $new_word = $name . $surname;
+
 echo $new_word, "<br/>";
 echo $group, "<br/>", "<br/>";
 
 // string methods
-echo "length of $name equals " . strlen($name); 
-echo "<br/>";
-echo 'length of $name equals ' . strlen($name); 
-echo "<br/>";
-
+echo "length of $name equals " . strlen($name), "<br/>"; 
+echo 'length of $name equals ' . strlen($name), "<br/>"; 
 echo strtoupper($name), "<br/>";
-
 echo substr($name, 1, 5), "<br/>", "<br/>";
 
 // array methods 
@@ -33,7 +30,7 @@ foreach ($pieces as &$item) {
     $new_item = ucwords($item);
     echo $new_item, " ";
 }
-echo "<br/>", "<br/>";
+echo "<br/> <br/>";
 
 // hash array
 $hash_array = array(
@@ -43,8 +40,8 @@ $hash_array = array(
 );
 print_r($hash_array);
 echo "<br/>";
-echo gettype($hash_array);
-echo "<br/>";
+echo gettype($hash_array), "<br/>";
+
 $users = array("Ivan", "Igor", "Andriy");
 print_r($users);
 echo "<br/>";
@@ -56,11 +53,15 @@ $double = 20.08567;
 $male = false;
 $string = "20";
 $someVar;
-$new_number = $number;
-echo gettype($number);
-echo "<br/>";
-echo $new_number;
-echo "<br/>";
+$new_number = $$number;
+echo gettype($number), "<br/>";
+echo $new_number , "<br/>";
+
+$new_number = 5;
+echo $new_number, " ", $number, "<br/>";
+
+$number = 15;
+echo $new_number, " ", $number, "<br/>";
 
 if($number < $double ){
     echo "$number < $double";
@@ -87,7 +88,7 @@ if(!$male){
 }
 echo "<br/>";
 
-echo gettype($someVar); # попередження і тип нал
+// echo gettype($someVar); # попередження і тип нал
 echo "<br/>";
 $someVar = null;
 echo gettype($someVar), "<br/>", "<br/>"; # тип нал
@@ -127,39 +128,57 @@ final class Audi extends Car { // final class
   }
 }
 
-class Mersedes { // singleton
-  private static $instance = null;
-
-  protected function __construct() { }
-
-  public static function getInstance() {
-    if (!isset(static::$instance)) {
-      static::$instance = new static();
-    }
-    return static::$instance;
-  }
-
-  private function __clone() {}
-}
+// final class Volvo extends Audi { // ERROR
+//   public function intro() : string {
+//     return "I am an $this->name!";
+//   }
+// }
 
 $audi = new Audi("s5", "green"); // об'єкт класу Audi
-echo $audi->get_color();
-echo "<br>";
-echo $audi->color; // помилка, тому що значення приватне
-echo "<br>";
+echo $audi->get_color(), "<br>";
+// echo $audi->color, "<br>"; // помилка, тому що значення приватне
 
 $car = new Car('xs500', 'red'); // об'єкт класу Car
-echo $car->get_model();
-echo "<br>";
+echo $car->get_model(), "<br>";
 $car->set_model('M07');
-echo $car->model;
-echo "<br/>";
+echo $car->model, "<br/>";
 
 var_dump($car instanceof Fruit);
 var_dump($car instanceof Car);
+echo "<br/> <br/>";
 
-$mers1 = new Mersedes("S5", "black"); // об'єкт класу Mersedes
-$mers2 = new Mersedes("A15", "white"); // об'єкт класу Mersedes
+// singleton
+class Singleton {
+    public $a;
+    private static $instance = [];
 
-echo "<br/>";
+    protected function __construct() {}
+    protected function __clone() {}
+    public function __wakeup() {
+        throw new \Exception("Cannot unserialize a singleton.");
+    }
+
+    public static function getInstance() {
+        if (empty(self::$instance)) {
+            self::$instance = new static();
+        }
+        return self::$instance;
+    }
+
+    public function getA() {
+        return $this->a;
+    }
+    public function setA($a) {
+       $this->a = $a;
+    }
+}
+
+$s1 = Singleton::getInstance();
+$s2 = Singleton::getInstance();
+if ($s1 === $s2) {
+  echo "Singleton works, both variables contain the same instance.", "<br>";
+} else {
+  echo "Singleton failed, variables contain different instances.", "<br>";
+}
+
 ?>
