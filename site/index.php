@@ -10,15 +10,11 @@
     <header>
         <nav>
             <ul id="menu">
-                <?php
-                $pages = dir("/pages");
-                echo $pages;
-                ?>
-                <!-- <li><a href="?id=main">Головна</a></li>
+                <li><a href="?id=main">Головна</a></li>
                 <li><a href="?id=about">Про мене</a></li>
                 <li><a href="?id=consultation">Консультації</a></li>
                 <li><a href="?id=program">Програма для батьків</a></li>
-                <li><a href="?id=articles">Статті</a></li> -->
+                <li><a href="?id=articles">Статті</a></li>
             </ul>
         </nav>
     </header>
