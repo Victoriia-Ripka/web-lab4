@@ -1,1 +1,1 @@
-consultations
+<p>You have visited page: <?php echo $_SESSION['counter'] ?> </p>
